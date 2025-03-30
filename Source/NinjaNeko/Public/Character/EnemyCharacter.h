@@ -11,5 +11,7 @@ UCLASS()
 class NINJANEKO_API AEnemyCharacter : public ANinjaNekoBaseCharacter
 {
 	GENERATED_BODY()
+
+	
 	
 };
