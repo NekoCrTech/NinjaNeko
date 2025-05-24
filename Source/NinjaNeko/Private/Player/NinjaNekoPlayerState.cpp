@@ -10,6 +10,7 @@ ANinjaNekoPlayerState::ANinjaNekoPlayerState()
 {
 	AbilitySystemComponent = CreateDefaultSubobject<UNinjaNekoAbilitySystemComponent>("AbilitySystemComponent");
 	AbilitySystemComponent->SetIsReplicated(true);
+	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
 
 	AttributeSet = CreateDefaultSubobject<UNinjaNekoAttributeSet>("AttributeSet");
 
