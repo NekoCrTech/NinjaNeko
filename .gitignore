@@ -72,3 +72,15 @@ Plugins/**/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
+# RawContent
+Files/*
+
+#Assets
+Content/Infinity_Rogues/*
+Content/KatanaAnimationSet/*
+Content/BlinkAndDashVFX/*
+Content/Character_Appearance_Dissolve/*
+Content/CloseCombatAnimSet/*
+Content/InfinityBladeWeapons/*
+Content/Assets/*
