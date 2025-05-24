@@ -3,17 +3,23 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "AbilitySystemInterface.h"
 #include "GameFramework/Character.h"
 #include "NinjaNekoBaseCharacter.generated.h"
 
-UCLASS()
-class NINJANEKO_API ANinjaNekoBaseCharacter : public ACharacter
+class UAttributeSet;
+class UAbilitySystemComponent;
+
+UCLASS(Abstract)
+class NINJANEKO_API ANinjaNekoBaseCharacter : public ACharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
 public:
 	
 	ANinjaNekoBaseCharacter();
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+	UAttributeSet* GetAttributeSet() const {return AttributeSet;}
 
 protected:
 	
@@ -21,5 +27,11 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Weapon")
 	TObjectPtr<USkeletalMeshComponent> Weapon;
+
+	UPROPERTY()
+	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
+
+	UPROPERTY()
+	TObjectPtr<UAttributeSet> AttributeSet;
 
 };

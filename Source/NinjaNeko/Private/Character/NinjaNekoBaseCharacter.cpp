@@ -13,6 +13,11 @@ ANinjaNekoBaseCharacter::ANinjaNekoBaseCharacter()
 	Weapon -> SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
+UAbilitySystemComponent* ANinjaNekoBaseCharacter::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
+}
+
 void ANinjaNekoBaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
