@@ -6,6 +6,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "GameFramework/Character.h"
+#include "Interaction/EnemyInterface.h"
 
 ANinjaNekoPC::ANinjaNekoPC()
 {
@@ -21,13 +22,83 @@ void ANinjaNekoPC::BeginPlay()
 	check(Subsystem);
 	Subsystem->AddMappingContext(NinjaNekoContext, 0);
 
-	bShowMouseCursor = false;
+	bShowMouseCursor = true;
 
 	FInputModeGameAndUI InputModeData;
 	InputModeData.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
 	InputModeData.SetHideCursorDuringCapture(false);
 	SetInputMode(InputModeData);
 }
+
+void ANinjaNekoPC::PlayerTick(float DeltaTime)
+{
+	Super::PlayerTick(DeltaTime);
+
+	CursorTrace();
+}
+
+void ANinjaNekoPC::CursorTrace()
+{
+	FHitResult CursorHit;
+	GetHitResultUnderCursor(ECC_Visibility,false,CursorHit);
+	if (!CursorHit.bBlockingHit) return;
+
+	LastActor = ThisActor;
+	ThisActor = CursorHit.GetActor();
+
+	/**
+	 * Line Trace from cursor. There are several scenarios:
+	 *  A. LastActor is null && ThisActor is null
+	 *		- Do Nothing
+	 *	B. LastActor is null && ThisActor is valid
+	 *		- Highlight ThisActor
+	 *	C. LastActor is valid  && ThisActor is null
+	 *		- Unhighlight LastActor
+	 *	D. Both are valid, but LastActor != ThisActor
+	 *		- Unhighlight LastActor
+	 *		- Highlight ThisActor
+	 *	E. Both are valid, but same actor
+	 *		- Do Nothing
+	 */
+
+	if (LastActor == nullptr)
+	{
+		if (ThisActor != nullptr)
+		{
+			// Case B
+			ThisActor->HighlightActor();
+		}
+		else
+		{
+			// Case A - Both are null. Do nothing
+		}
+	}
+	else // LastActor is valid
+	{
+		if (ThisActor == nullptr)
+		{
+			// Case C
+			LastActor->UnHighlightActor();
+		}
+		else // Both are valid
+		{
+			if (LastActor != ThisActor)
+			{
+				// Case D
+				LastActor->UnHighlightActor();
+				ThisActor->HighlightActor();
+			}
+			else
+			{
+				// Case E Both are valid, but same actor. Do Nothing
+			}
+		}
+	}
+}
+
+//////////////////////////////////////////////////////////////////////////////
+									//Input//
+//////////////////////////////////////////////////////////////////////////////
 
 void ANinjaNekoPC::SetupInputComponent()
 {
@@ -90,3 +161,5 @@ void ANinjaNekoPC::StopJumping(const FInputActionValue& Value)
 		}
 	}
 }
+
+

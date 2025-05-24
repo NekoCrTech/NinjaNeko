@@ -9,6 +9,7 @@
 
 class UInputMappingContext;
 class UInputAction;
+class IEnemyInterface;
 /**
  * 
  */
@@ -20,6 +21,7 @@ class NINJANEKO_API ANinjaNekoPC : public APlayerController
 public:
 	
 	ANinjaNekoPC();
+	virtual void PlayerTick(float DeltaTime) override;
 	
 protected:
 	
@@ -43,6 +45,8 @@ private:
 	void Jump(const FInputActionValue& Value);
 	void StopJumping(const FInputActionValue& Value);
 	
-	
+	void CursorTrace();
+	TScriptInterface<IEnemyInterface> LastActor;
+	TScriptInterface<IEnemyInterface> ThisActor;
 };
 
