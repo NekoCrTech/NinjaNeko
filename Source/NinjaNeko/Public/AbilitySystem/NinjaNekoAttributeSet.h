@@ -3,14 +3,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "AbilitySystemComponent.h"
 #include "AttributeSet.h"
 #include "NinjaNekoAttributeSet.generated.h"
 
-// #define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
-// GAMEPLAYATTRIBUTE_PROPERTY_GETTER(ClassName, PropertyName) \
-// GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName) \
-// GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
-// GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
+#define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
+GAMEPLAYATTRIBUTE_PROPERTY_GETTER(ClassName, PropertyName) \
+GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName) \
+GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
+GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
 UCLASS()
 class NINJANEKO_API UNinjaNekoAttributeSet : public UAttributeSet
@@ -27,6 +28,7 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Health, Category = "Vital Attributes")
 	FGameplayAttributeData Health;
+	ATTRIBUTE_ACCESSORS(UNinjaNekoAttributeSet, Health);
 	
 	UFUNCTION()
 	void OnRep_Health(const FGameplayAttributeData& OldHealth) const;
@@ -34,6 +36,7 @@ public:
 	// MaxHealth
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxHealth, Category = "Vital Attributes")
 	FGameplayAttributeData MaxHealth;
+	ATTRIBUTE_ACCESSORS(UNinjaNekoAttributeSet, MaxHealth);
 
 	UFUNCTION()
 	void OnRep_MaxHealth(const FGameplayAttributeData& OldMaxHealth) const;
@@ -41,6 +44,7 @@ public:
 	// Chakra
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Chakra, Category = "Vital Attributes")
 	FGameplayAttributeData Chakra;
+	ATTRIBUTE_ACCESSORS(UNinjaNekoAttributeSet, Chakra);
 
 	UFUNCTION()
 	void OnRep_Chakra(const FGameplayAttributeData& OldChakra) const;
@@ -48,6 +52,7 @@ public:
 	// MaxChakra
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxChakra, Category = "Vital Attributes")
 	FGameplayAttributeData MaxChakra;
+	ATTRIBUTE_ACCESSORS(UNinjaNekoAttributeSet, MaxChakra);
 
 	UFUNCTION()
 	void OnRep_MaxChakra(const FGameplayAttributeData& OldMaxChakra) const;
@@ -55,6 +60,7 @@ public:
 	// Stamina
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Stamina, Category = "Vital Attributes")
 	FGameplayAttributeData Stamina;
+	ATTRIBUTE_ACCESSORS(UNinjaNekoAttributeSet, Stamina);
 
 	UFUNCTION()
 	void OnRep_Stamina(const FGameplayAttributeData& OldStamina) const;
@@ -62,6 +68,7 @@ public:
 	// MaxStamina
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxStamina, Category = "Vital Attributes")
 	FGameplayAttributeData MaxStamina;
+	ATTRIBUTE_ACCESSORS(UNinjaNekoAttributeSet, MaxStamina);
 
 	UFUNCTION()
 	void OnRep_MaxStamina(const FGameplayAttributeData& OldMaxStamina) const;

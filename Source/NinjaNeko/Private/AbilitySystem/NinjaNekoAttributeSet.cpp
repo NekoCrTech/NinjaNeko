@@ -2,11 +2,16 @@
 
 
 #include "AbilitySystem/NinjaNekoAttributeSet.h"
-#include "AbilitySystemComponent.h"
 #include "Net/UnrealNetwork.h"
 
 UNinjaNekoAttributeSet::UNinjaNekoAttributeSet()
 {
+	InitHealth(100.f);
+	InitMaxHealth(100.f);
+	InitChakra(50.f);
+	InitMaxChakra(50.f);
+	InitStamina(75.f);
+	InitMaxStamina(75.f);
 }
 
 void UNinjaNekoAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
