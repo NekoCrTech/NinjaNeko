@@ -20,6 +20,15 @@ class ANinjaNekoCharacter : public ANinjaNekoBaseCharacter
 {
 	GENERATED_BODY()
 
+public:
+	ANinjaNekoCharacter();
+	virtual void PossessedBy(AController* NewController) override;
+	virtual void OnRep_PlayerState() override;
+
+private:
+
+	void InitAbilityActorInfo();
+
 	/** Camera boom positioning the camera behind the character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	USpringArmComponent* CameraBoom;
@@ -27,8 +36,6 @@ class ANinjaNekoCharacter : public ANinjaNekoBaseCharacter
 	/** Follow camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* SideViewCameraComponent;
-
-public:
-	ANinjaNekoCharacter();
+	
 };
 

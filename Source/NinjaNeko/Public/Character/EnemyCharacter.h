@@ -14,7 +14,12 @@ class NINJANEKO_API AEnemyCharacter : public ANinjaNekoBaseCharacter, public IEn
 	GENERATED_BODY()
 public:
 	AEnemyCharacter();
-	
+
+	/** Enemy Interface */	
 	virtual void HighlightActor() override;
 	virtual void UnHighlightActor() override;
+	/** End Enemy Interface */	
+
+protected:
+	virtual void BeginPlay() override;
 };

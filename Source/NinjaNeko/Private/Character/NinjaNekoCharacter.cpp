@@ -1,6 +1,8 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "Character/NinjaNekoCharacter.h"
+
+#include "AbilitySystemComponent.h"
 #include "Engine/LocalPlayer.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -10,6 +12,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "Player/NinjaNekoPlayerState.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -51,5 +54,30 @@ ANinjaNekoCharacter::ANinjaNekoCharacter()
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named NinjaNekoCharacter (to avoid direct content references in C++)
+}
+
+void ANinjaNekoCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	// Init ability actor info for the Server
+	InitAbilityActorInfo();
+}
+
+void ANinjaNekoCharacter::OnRep_PlayerState()
+{
+	Super::OnRep_PlayerState();
+
+	// Init ability actor info for the Client
+	InitAbilityActorInfo();
+}
+
+void ANinjaNekoCharacter::InitAbilityActorInfo()
+{
+	ANinjaNekoPlayerState* NinjaNekoPlayerState = GetPlayerState<ANinjaNekoPlayerState>();
+	check(NinjaNekoPlayerState);
+	NinjaNekoPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(NinjaNekoPlayerState,this);
+	AbilitySystemComponent = NinjaNekoPlayerState->GetAbilitySystemComponent();
+	AttributeSet = NinjaNekoPlayerState->GetAttributeSet();
 }
 
